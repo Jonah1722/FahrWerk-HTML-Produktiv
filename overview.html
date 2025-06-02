@@ -1,0 +1,294 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fahrschule Das Fahr-Werk in Nauen | Startseite</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/materialize.css"/>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&amp;family=Open Sans:wght@400&amp;display=swap"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+  <meta name="description" content="Startseite der Fahrschule Das Fahr-Werk in Nauen – Ihr zuverlässiger Partner für moderne Fahrausbildung. Erfahrene Fahrlehrer, individuelle Kursangebote und praxisnahe Trainingskonzepte bereiten Sie optimal auf den Führerschein vor." />
+
+  <meta name="keywords" content="Fahrschule, Führerschein, Autofahren lernen, FahrWerk, Das FahrWerk, das-fahr-werk.schule, www.das-fahr-werk.schule, Nauen, Fahrschule Nauen, FahrWerk Nauen, fahrwerk nauen, FahrwerkNauen, Fahrschule Das Fahr-Werk, Führerschein Theorie, Führerschein Praxis, Fahrunterricht, Fahrlehrer Nauen, Fahrlehrerin Nauen, Führerscheinkurs, Fahrstunden, Fahrprüfung, Auto fahren lernen, Modernes Fahren, Fahrzeugtraining, Fahrtraining Nauen, Theorieprüfung, Praxisprüfung, Intensivkurs Führerschein, Fahrschule Brandenburg, Auto Fahrschule, Fahrschulangebote, Fahrschulservice, Fahrprüfung bestehen, Autofahren, Systemischer Führerschein, Fahrschule Erfahrungen, Fahrschule Bewertungen"/>
+
+
+  <!-- REMOVE WENN THIS IS USED AS INDEX -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:alt" content="">
+
+  <link rel="canonical" href="https://www.das-fahr-werk.schule/" />
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<script>
+  fetch('https://portal.das-fahr-werk.schule/api/termine/naechste-theorie')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP-Fehler: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      const list = document.getElementById('theorie-liste');
+      if (data.length === 0) {
+        list.innerHTML = '<li>Keine Termine geplant</li>';
+      } else {
+        data.forEach(termin => {
+          const li = document.createElement('li');
+          const datum = new Date(termin.start).toLocaleString("de-DE", {
+            weekday: 'short', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+          });
+          li.textContent = `${datum} – ${termin.title}`;
+          list.appendChild(li);
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Fehler beim Laden der Termine:', error);
+      document.getElementById('theorie-liste').innerHTML = '<li>Fehler beim Abruf</li>';
+    });
+</script>
+
+<script>
+  fetch('https://portal.das-fahr-werk.schule/api/aktuelles/aktuelles')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP-Fehler: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      const container = document.getElementById('aktuelles-liste');
+      container.innerHTML = ''; // vorher leeren
+
+      if (data.length === 0) {
+        container.innerHTML = '<li>Keine aktuellen Nachrichten.</li>';
+      } else {
+        data.forEach(news => {
+          const li = document.createElement('li');
+
+          let html = `<strong>${news.title}</strong> - ${news.content}`;
+          if (news.link) {
+            html += `<br/><a href="${news.link}" target="_blank">Mehr erfahren</a>`;
+          }
+
+          li.innerHTML = html;
+          container.appendChild(li);
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Fehler beim Laden der Informationen:', error);
+      document.getElementById('aktuelles-liste').innerHTML = '<li>Fehler beim Abruf</li>';
+    });
+</script>
+
+
+<body>
+
+<script src="js/jquery-3.7.1.js"></script>
+<script src="js/materialize.js"></script>
+<script src="js/app.js"></script>
+
+<!-- Header-Bereich -->
+<div class="header-container">
+  <div id="header-form" class="header-form">
+    <div class="header-nav-bar" id="nav-bar">
+      <div class="menu-icon" style="display: flex;">
+        <a href="#" onclick="fahrwerktool.toggleMainMenu(); return false;">
+          <i class="material-icons" aria-hidden="true">dehaze</i>
+        </a>
+<!--        <div class="test-page-text" style="padding-left: 160px">WEBSITE ZU TESTZWECKEN</div>-->
+      </div>
+
+      <!--<div class="login-button tooltipped" data-tooltip="Login" data-position="bottom" style="display: block;">
+        <a href="https://portal.das-fahr-werk-fahrschule.de/index.xhtml" target="_blank">
+          <i class="material-icons login-icon">lock_outline</i>
+        </a>
+      </div>-->
+    </div>
+  </div>
+
+  <!-- Menü-Bereich -->
+  <div id="page-menu">
+    <div class="menu-overlay" id="menuOverlay">
+      <div class="menu" id="menuContent">
+        <a href="#" class="close-menu" onclick="fahrwerktool.toggleMainMenu(); return false;">
+          <i class="material-icons">close</i>
+        </a>
+        <!-- Navigation -->
+        <a href="overview.html" aria-hidden="true">Home</a>
+        <a href="classes.html" aria-hidden="true">Klassen</a>
+        <a href="about-us.html" aria-hidden="true">Über Uns</a>
+        <a href="jobs.html">Karriereleiter</a>
+        <a href="gallery.html" aria-hidden="true">Galerie</a>
+        <a href="overview.html#contact-social-section" onclick="fahrwerktool.closeMainMenu()" aria-hidden="true">Kontakt</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="main-wrapper main-container">
+  <!-- Content-Bereich -->
+  <div class="overview-container">
+    <!-- Hero-Bereich -->
+    <div class="hero" style="position: relative;">
+      <h1>Das Fahr-Werk</h1>
+      <p>Der Weg zur Freiheit beginnt mit dem ersten Gang.</p>
+
+      <div style="margin-top: 20px;">
+        <a href="https://fs0960.fso360-svc.de" class="btn pre-login-btn waves-effect waves-light darken-2">
+          <i class="material-icons left">person_add</i>
+          Beginne deine Reise hier!
+        </a>
+      </div>
+    </div>
+
+    <!-- Gemeinsamer Container -->
+    <div id="popup-container">
+      <!-- Popup: Theorietermine -->
+      <div id="popup-message" class="card">
+        <div class="card-action close-button-container">
+          <a href="#" onclick="document.getElementById('popup-message').style.display='none'">
+            <i class="material-icons">close</i>
+          </a>
+        </div>
+        <div class="card-content">
+          <span class="card-title">Nächste Theorietermine</span>
+          <ul id="theorie-liste" class="browser-default"></ul>
+        </div>
+      </div>
+
+      <!-- Popup: Aktuelles -->
+      <div id="popup-message-current" class="card">
+        <div class="card-action close-button-container">
+          <a href="#" onclick="document.getElementById('popup-message-current').style.display='none'">
+            <i class="material-icons">close</i>
+          </a>
+        </div>
+        <div class="card-content">
+          <span class="card-title">Aktuelles</span>
+          <ul id="aktuelles-liste" class="browser-default"></ul>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Features-Bereich -->
+    <div class="features">
+      <h2 class="section-title">Warum Das FahrWerk?</h2>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="material-icons">computer</i>
+          </div>
+          <h3>Moderne Ausbildung</h3>
+          <p>Wir nutzen die neueste Technik und Lehrmethoden, um dich optimal auf die Fahrprüfung vorzubereiten.</p>
+          <p>Du arbeitest mit unserer Work-Box, Ein Set aus einem Lehrbuch, einem Workbook, verschiedenen Arbeitsblättern und natürlich der Lern-App. Die Work-Box begleitet Dich über die gesamte Ausbildung, im Theorie- wie auch im praktischen Unterricht.</p>
+          <p>Die ersten Fahrstunden im PKW-Bereich finden in entspannter Atmosphäre an einem Fahrsimulator der neuesten Generation statt. Dort lernst Du die wichtigsten Bedienelemente  eines PKW kennen, den Umgang mit der Kupplung und der Bremse und einiges mehr, ohne den anfänglichen Stress des realen Straßenverkehrs.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="material-icons">extension</i>
+          </div>
+          <h3>Individuelle Betreuung</h3>
+          <p>Unsere Kurse sind auf deine Bedürfnisse abgestimmt, um dir den besten Lernerfolg zu garantieren.</p>
+          <p>Theorieunterricht „am Stück“, von Samstag bis Samstag. Nach einer Woche bist du damit durch und kannst dich auf deine Theorieprüfung vorbereiten.</p>
+          <p>Wunschfahrlehrer oder du möchtest eine Fahrlehrerin? Bei uns kein Problem</p>
+          <p>Nach der Schule noch Zeit? Zu Hause keine Ruhe? Mit unserem Fahrschul-Cafe  bieten wir Dir einen Platz zum Lernen. Nutze unsere Räume, die kleine Bibliothek oder lass Dir etwas von unseren Fahrlehrern erklären. Ob alleine oder mit anderen, ganz ungezwungen und natürlich .freiwillig und ohne Extrakosten.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="material-icons">access_alarm</i>
+          </div>
+          <h3>Flexibilität</h3>
+          <p>Wähle die Kurszeiten, die am besten in deinen Zeitplan passen, für ein stressfreies Lernen.</p>
+          <p>Beruflich stark eingebunden? Keine Zeit für Fahrstunden? Plane mit uns und lege deine Fahrstunden zB. in deinen Urlaub. Gegen Aufpreis sind auch Termine außerhalb unserer Kernzeiten möglich. Komm vorbei und lass dich beraten. Wir finden einen Weg.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="material-icons">star_border</i>
+          </div>
+          <h3>Erfolgsgarantie</h3>
+          <p>Unsere erfahrenen Fahrlehrer stehen dir zur Seite, bis du sicher auf der Straße bist.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Klassen-Bereich -->
+    <div class="classes-section">
+      <h2 class="section-title">Deine Möglichkeiten</h2>
+      <div class="classes-section-pictures">
+        <div class="class-box class-b">
+          <div class="class-content">
+            <h2>Klasse B</h2>
+            <p>Erfahre mehr über unsere Ausbildung für den PKW-Führerschein.</p>
+            <a href="classes.html#class-b-form" class="btn">Mehr erfahren</a>
+          </div>
+        </div>
+        <div class="class-box class-a">
+          <div class="class-content">
+            <h2>Klasse A</h2>
+            <p>Erfahre mehr über unsere Ausbildung für den Motorradführerschein.</p>
+            <a href="classes.html#class-a-form" class="btn">Mehr erfahren</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kontakt- und Social-Media-Bereich -->
+    <div class="contact-social-section" id="contact-social-section">
+      <div class="social-media-info">
+        <h2>Folge uns auf Social Media</h2>
+        <div class="social-media-icons">
+          <a href="https://www.instagram.com/das_fahr_werk/" target="_blank">Instagram</a>
+          <a href="https://www.facebook.com/p/Fahrschule-das-Fahr-Werk-61553474998760/" target="_blank">Facebook</a>
+          <a href="https://wa.me/+491711444910" target="_blank">WhatsApp</a>
+        </div>
+      </div>
+      <div class="info-container">
+        <div class="contact-info">
+          <p><strong>Hast du Fragen?</strong></p>
+          <p><a href="mailto:info@das-fahr-werk.schule" class="contact-email">info@das-fahr-werk.schule</a></p>
+          <p>Telefon: <a href="tel:033214600274">03321 4600274</a></p>
+          <p>Adresse: <a href="https://maps.app.goo.gl/X432MkSaex3ZbVan6" target="_blank">Berliner Str. 4, 14641
+            Nauen</a>
+          </p>
+          <p>Öffnungszeiten: Montag - Freitag | 14:00 Uhr - 19:00 Uhr</p>
+        </div>
+        <div class="image-container">
+          <img src="img/FahrWerk%20Wheel%20aestetic.jpg" alt="FahrWerk Bild"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="footer-container">
+  <div class="footer-nav-bar" id="footer-bar">
+    <div class="modal-footer">
+      &copy; 2024 Das FahrWerk |
+      <a id="impressum" href="impressum.html">Impressum</a>
+      | <a id="datenschutz" href="datenschutz.html">Datenschutz</a>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>
