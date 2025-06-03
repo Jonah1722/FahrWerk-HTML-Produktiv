@@ -306,20 +306,6 @@ body {
   }
 }
 
-/* Optional: Responsive Popup */
-@media only screen and (max-width: 600px) {
-  #popup-message {
-    top: auto;
-    bottom: 20px;
-    right: 20px;
-    left: 20px;
-    max-width: none;
-    width: auto;
-  }
-}
-
-
-
 .features {
   padding: 60px 20px;
   background-color: #f9f9f9;
@@ -748,6 +734,51 @@ body {
   .hero p {
     font-size: 18px;
     max-width: 90%;
+  }
+
+  #popup-container {
+    position: fixed;
+    top: auto;
+    bottom: 20px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+    max-width: none;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  #popup-message,
+  #popup-message-current {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+    font-size: 14px;
+  }
+
+  #popup-message .card-title,
+  #popup-message-current .card-title {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  #popup-message .close-button-container,
+  #popup-message-current .close-button-container {
+    top: -8px;
+    right: -8px;
+  }
+
+  #popup-message .close-button-container .material-icons,
+  #popup-message-current .close-button-container .material-icons {
+    font-size: 20px;
+  }
+
+  #popup-message li,
+  #popup-message-current li {
+    font-size: 14px;
+    line-height: 1.4;
   }
 }
 
