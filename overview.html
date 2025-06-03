@@ -34,7 +34,7 @@
 </head>
 
 <script>
-  fetch('https://portal.das-fahr-werk.schule/api/termine/naechste-theorie')
+  fetch('https://portal.das-fahr-werk-fahrschule.de/api/termine/naechste-theorie')
     .then(response => {
       if (!response.ok) {
         throw new Error(`HTTP-Fehler: ${response.status}`);
@@ -63,7 +63,7 @@
 </script>
 
 <script>
-  fetch('https://portal.das-fahr-werk.schule/api/aktuelles/aktuelles')
+  fetch('https://portal.das-fahr-werk-fahrschule.de/api/aktuelles/aktuelles')
     .then(response => {
       if (!response.ok) {
         throw new Error(`HTTP-Fehler: ${response.status}`);
