@@ -19,5 +19,5 @@ jobs:
           port: 21
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
-          server-dir: /das-fahr-werk.de/testpageproject  # oder dein Zielpfad
+          server-dir: /das-fahr-werk.de/testpageproject/  # oder dein Zielpfad
           protocol: ftp
