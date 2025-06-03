@@ -1,0 +1,23 @@
+name: FTP Deploy to Alfahosting
+
+on:
+  push:
+    branches:
+      - main  # oder master, je nach Haupt-Branch
+
+jobs:
+  ftp-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: em6cbn6h_github.web150.alfahosting-server.de
+          port: 21
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          server-dir: /das-fahr-werk.de/testpageproject  # oder dein Zielpfad
+          protocol: ftp
